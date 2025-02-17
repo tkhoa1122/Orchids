@@ -1,0 +1,31 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Đảm bảo navbar luôn ở trên cùng */
+  }
+
+.logo-div {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between; /* Khoảng cách hợp lý giữa các phần tử */
+    gap: 20px; /* Khoảng cách giữa logo và tên shop */
+    margin-left: 10%;
+}
+
+.logo {
+    width: 70px;
+    height: auto;
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Tăng kích thước chữ cho nổi bật */
+    margin-left: 10px; /* Giảm margin nếu logo và tên quá xa nhau */
+  }
+  
+  .navbar-toggler {
+    margin-left: auto; /* Đẩy button toggler về bên phải */
+  }
+  
+  .d-flex {
+    align-items: center; /* Căn chỉnh hàng dọc trong form tìm kiếm */
+  }
