@@ -2,6 +2,7 @@
     position: sticky;
     top: 0;
     z-index: 1000; /* Đảm bảo navbar luôn ở trên cùng */
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 
 .logo-div {
@@ -21,6 +22,7 @@
     font-weight: bold;
     font-size: 1.5rem; /* Tăng kích thước chữ cho nổi bật */
     margin-left: 10px; /* Giảm margin nếu logo và tên quá xa nhau */
+    transition: color 0.5s ease;
   }
   
   .navbar-toggler {
@@ -30,3 +32,54 @@
   .d-flex {
     align-items: center; /* Căn chỉnh hàng dọc trong form tìm kiếm */
   }
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .navbar {
+  background-color: #1a1a1a !important;
+}
+
+.dark-mode .nav-link {
+  color: #ffffff !important;
+}
+
+.dark-mode .navbar-brand {
+  color: #ffffff !important;
+}
+
+.dark-mode .form-control {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+.dark-mode .btn-outline-success {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.dark-mode .btn-outline-success:hover {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.dark-mode .dropdown-menu {
+  background-color: #2d2d2d;
+  border-color: #444444;
+}
+
+.dark-mode .dropdown-item {
+  color: #ffffff;
+}
+
+.dark-mode .dropdown-item:hover {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.nav-link {
+  transition: color 0.5s ease;
+}
