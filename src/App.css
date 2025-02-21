@@ -39,3 +39,22 @@
 .read-the-docs {
   color: #888;
 }
+
+.main-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  min-height: calc(100vh - 200px); /* Điều chỉnh theo chiều cao của Nav và Footer */
+}
+
+.orchids-container {
+  flex: 1;
+  padding: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .orchids-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

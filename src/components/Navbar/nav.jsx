@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import './nav.css'
 
 export default class Nav extends Component {
+  
   render() {
     return (
       <nav className="navbar navbar-expand-lg bg-body-tertiary">

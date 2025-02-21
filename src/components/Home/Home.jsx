@@ -31,11 +31,13 @@ const App = () => {
   return (
     <div>
       <Nav />
-      <h1 style={{ textAlign: 'center' }}>Orchids Store</h1>
-      <div className="main-container">
-        <FilterSidebar selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
-        <div>
-          <Orchids orchids={filteredOrchids} />
+      <div>
+        <h1 style={{ textAlign: 'center' }}>Orchids Store</h1>
+        <div className="main-container">
+          <FilterSidebar selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
+          <div className="orchids-container">
+            <Orchids orchids={filteredOrchids} />
+          </div>
         </div>
       </div>
 

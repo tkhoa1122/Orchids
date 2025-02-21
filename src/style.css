@@ -1,21 +1,29 @@
+/* .orchids-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  width: 100%; /* Đảm bảo container luôn full width
+} */
+
 .orchids-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Sử dụng space-between thay cho space-around để tạo khoảng cách đều giữa các card */
-  gap: 20px;
-  margin: 20px;
+  justify-content: flex-start; /* Giữ các phần tử căn lề trái */
+  gap: 30px;
+  min-width: 500px;
+  margin-left: 50px; /* Đẩy toàn bộ container sang phải */
 }
 
+
 .orchid-card {
-  flex-basis: 23%; /* Mỗi card chiếm khoảng 23% chiều rộng để có 4 card mỗi dòng */
-  height: auto;
-  padding: 15px; /* Tăng padding cho card */
+  width: 450px; /* Đặt chiều rộng tối đa */
+  padding: 20px;
   border: 1px solid #000000;
-  border-radius: 15px; /* Sử dụng border-radius lớn hơn để mềm mại hơn */
+  border-radius: 15px;
   text-align: center;
-  background-color: #e8e8e8;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho card */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng hover */
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .orchid-card p {
@@ -51,16 +59,16 @@
   color: #333; /* Màu sắc của tiêu đề */
 }
 
-/* Media query cho các thiết bị di động */
+/* Responsive */
 @media (max-width: 1200px) {
   .orchid-card {
-    flex-basis: 48%; /* 2 card mỗi dòng trên màn hình rộng vừa */
+    flex: 0 0 calc(50% - 20px); /* 2 card mỗi hàng */
   }
 }
 
 @media (max-width: 768px) {
   .orchid-card {
-    flex-basis: 100%; /* 1 card mỗi dòng trên màn hình nhỏ */
+    flex: 0 0 100%; /* 1 card mỗi hàng */
   }
 }
 
