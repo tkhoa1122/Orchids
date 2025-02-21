@@ -10,11 +10,13 @@ import Orchids from "./components/OrchidData/Orchid";
 import Nav from "./components/Navbar/nav";
 import Footer from "./components/Footer/footer";
 import FilterSidebar from "./components/FilterSideBar/FilterSideBar";
+import OrchidModal from "./components/Modal/OrchidModal";
 
 import User from "./components/UserPosts/User";
 
 const App = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedOrchid, setSelectedOrchid] = useState(null);
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prevSelected) =>
@@ -28,17 +30,25 @@ const App = () => {
     ? ListOfOrchid
     : ListOfOrchid.filter(orchid => selectedCategories.includes(orchid.category));
 
+  const handleOrchidClick = (orchid) => {
+    setSelectedOrchid(orchid);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedOrchid(null);
+  };
+
   return (
     <div>
       <Nav />
       <h1 style={{ textAlign: 'center' }}>Orchids Store</h1>
       <div className="main-container">
         <FilterSidebar selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
-        <div>
-          <Orchids orchids={filteredOrchids} />
+        <div className="orchids-container">
+          <Orchids orchids={filteredOrchids} onOrchidClick={handleOrchidClick} />
         </div>
       </div>
-
+      <OrchidModal orchid={selectedOrchid} onClose={handleCloseModal} />
       <Footer />
     </div>
   );

@@ -36,7 +36,7 @@ const OrchidCard = ({ orchid }) => {
           </span>
         )}
       </h3>
-
+{/* 
       <p>
         <strong>Origin:</strong>
         <span
@@ -67,7 +67,7 @@ const OrchidCard = ({ orchid }) => {
       </p>
 
       {/* Rating với Bootstrap và FontAwesome */}
-      <p>
+      {/* <p>
         <strong>Rating:</strong>
 
         <span className="d-flex">
@@ -99,12 +99,12 @@ const OrchidCard = ({ orchid }) => {
           <i className="fas fa-play-circle" style={{ marginRight: "8px" }}></i>
           Watch Video
         </button>
-      </p>
+      </p> */}
 
       {/* Thêm 2 nút cho Price và Add to Cart */}
-      <div className="d-flex justify-content-between align-items-center">
+      {/* <div className="d-flex justify-content-between align-items-center"> */}
         {/* Nút Like */}
-        <button
+        {/* <button
           className="btn btn-outline-primary d-flex align-items-center"
           onClick={handleLike}
         >
@@ -130,7 +130,7 @@ const OrchidCard = ({ orchid }) => {
             orchid.marketValue
           )}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
