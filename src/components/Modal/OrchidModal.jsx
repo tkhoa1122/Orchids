@@ -32,7 +32,7 @@ const OrchidModal = ({ orchid, onClose }) => {
         <img src={orchid.image} alt={orchid.name} className="orchid-image" />
         
         <p>
-          <strong>Origin:</strong>
+          <strong>Origin: </strong>
           <span style={{ color: "black", fontWeight: "bold" }}>
             {orchid.origin}
           </span>
@@ -54,9 +54,9 @@ const OrchidModal = ({ orchid, onClose }) => {
         </p>
 
         {/* Rating */}
-        <p>
+        <div className="rating-container">
           <strong>Rating:</strong>
-          <span className="d-flex">
+          <span className="rating-stars">
             {Array.from({ length: 5 }, (_, index) => (
               <i
                 key={index}
@@ -65,7 +65,7 @@ const OrchidModal = ({ orchid, onClose }) => {
               />
             ))}
           </span>
-        </p>
+        </div>
 
         {/* Video */}
         <div className="video-section">

@@ -90,7 +90,7 @@ export default class Nav extends Component {
                 </ul>
               </li>
             </ul>
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center me-3">
               <div className="form-check form-switch me-3">
                 <input
                   className="form-check-input"
@@ -104,9 +104,35 @@ export default class Nav extends Component {
                   {this.state.darkMode ? '🌙' : '☀️'}
                 </label>
               </div>
-              <button className="btn btn-link" type="button">
-                <i className={`fas fa-user ${this.state.darkMode ? 'text-light' : ''}`} style={{ fontSize: '1.5rem' }}></i>
-              </button>
+              <div className="dropdown">
+                <button 
+                  className="btn btn-link dropdown-toggle" 
+                  type="button" 
+                  id="userDropdown" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  <i className={`fas fa-user ${this.state.darkMode ? 'text-light' : ''}`} style={{ fontSize: '1.5rem' }}></i>
+                </button>
+                <ul className={`dropdown-menu ${this.state.darkMode ? 'bg-dark' : ''}`} aria-labelledby="userDropdown">
+                  <li>
+                    <a className={`dropdown-item ${this.state.darkMode ? 'text-light' : ''}`} href="#">
+                      <i className="fas fa-user-circle me-2"></i> Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a className={`dropdown-item ${this.state.darkMode ? 'text-light' : ''}`} href="#">
+                      <i className="fas fa-shopping-cart me-2"></i> Cart
+                    </a>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <a className={`dropdown-item ${this.state.darkMode ? 'text-light' : ''}`} href="#">
+                      <i className="fas fa-sign-out-alt me-2"></i> Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

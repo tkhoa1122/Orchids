@@ -3,7 +3,8 @@
     top: 0;
     z-index: 1000; /* Đảm bảo navbar luôn ở trên cùng */
     transition: background-color 0.5s ease, color 0.5s ease;
-  }
+    padding: 0.5rem 1rem; /* Giảm padding để navbar gọn hơn */
+}
 
 .logo-div {
     display: flex;
@@ -82,4 +83,43 @@
 
 .nav-link {
   transition: color 0.5s ease;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.dropdown-menu {
+  min-width: 200px;
+  right: 0; /* Căn phải dropdown menu */
+  left: auto;
+  max-height: 300px; /* Đặt chiều cao tối đa */
+  overflow-y: auto; /* Cho phép scroll khi nội dung vượt quá chiều cao tối đa */
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+}
+
+.dark-mode .dropdown-menu {
+  background-color: #2d2d2d;
+}
+
+.dark-mode .dropdown-item {
+  color: #ffffff;
+}
+
+.dark-mode .dropdown-item:hover {
+  background-color: #444444;
+}
+
+.navbar-collapse {
+  justify-content: flex-end; /* Đẩy các phần tử về phía bên phải */
+}
+
+.d-flex.align-items-center {
+  margin-right: 0; /* Loại bỏ margin bên phải */
 }

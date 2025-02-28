@@ -124,3 +124,14 @@
     transition: color 0.5s ease;
   }
   
+  .rating-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .rating-stars {
+    display: flex;
+    gap: 5px;
+  }
+  
