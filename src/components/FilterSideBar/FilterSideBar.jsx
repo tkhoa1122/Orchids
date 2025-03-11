@@ -29,13 +29,6 @@ const FilterSidebar = ({ selectedCategories, onCategoryChange }) => {
           </div>
         )}
       </div>
-      <button
-        className="btn btn-primary mt-3"
-        style={{ marginLeft: '1rem' }}
-        onClick={() => alert('Create Orchid functionality')}
-      >
-        Create Orchid
-      </button>
     </div>
   );
 };

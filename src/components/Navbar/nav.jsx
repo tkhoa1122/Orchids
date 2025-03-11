@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './nav.css';
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from '../../../public/assets/img/logo.png';
 
 const Nav = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -21,10 +22,13 @@ const Nav = () => {
     <nav className={`navbar navbar-expand-lg ${darkMode ? 'bg-dark' : 'bg-body-tertiary'}`}>
       <div className="container-fluid">
         <div className="logo-div">
-          <img className="logo" src="assets/img/logo.png" alt="Orchid Logo" />
-          <a className={`navbar-brand ${darkMode ? 'text-light' : ''}`} href="#">
-            Orchids
-          </a>
+          <img className="logo" src={logo} alt="Orchid Logo" />
+          <Link 
+                className={`navbar-brand ${darkMode ? 'text-light' : ''}`} 
+                to="/"
+              >
+                Orchids
+              </Link>
         </div>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -36,26 +40,29 @@ const Nav = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className={`nav-link active ${darkMode ? 'text-light' : ''}`} aria-current="page" href="#">
+              <Link 
+                className={`nav-link active ${darkMode ? 'text-light' : ''}`} 
+                aria-current="page" 
+                to="/"
+              >
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className={`nav-link ${darkMode ? 'text-light' : ''}`} href="#">
-                Link
-              </a>
+            <Link 
+                className={`nav-link ${darkMode ? 'text-light' : ''}`} 
+                to="/About"
+              >
+                About
+              </Link>
             </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#">Action</a></li>
-                <li><a className="dropdown-item" href="#">Another action</a></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><a className="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+            <li className="nav-item">
+              <Link 
+                className={`nav-link ${darkMode ? 'text-light' : ''}`} 
+                to="/Contact"
+              >
+                Contact
+              </Link>
             </li>
           </ul>
 

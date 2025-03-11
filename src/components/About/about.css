@@ -1,0 +1,35 @@
+/* header.css (or about.css if you want specific styles) */
+
+.container-h1 {
+    font-family: 'Playfair Display', serif; /* Elegant font */
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+  
+  .container-p {
+    font-family: 'Lora', serif; /* Clean and readable font */
+    font-size: 1.2rem;
+    line-height: 1.8;
+    text-align: justify;
+    color: #333;
+  }
+  
+  
+  
+  .about img {
+    margin-bottom: 30px;
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  
+    p {
+      font-size: 1.1rem;
+    }
+  }
+  

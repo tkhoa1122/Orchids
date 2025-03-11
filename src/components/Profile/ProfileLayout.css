@@ -1,0 +1,27 @@
+/* Light mode styles (default) */
+.dark-mode-bg {
+    background-color: #ffffff;
+}
+
+.dark-mode-text {
+    color: #000000;
+}
+
+.dark-mode-btn {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Dark mode styles */
+.dark-mode .dark-mode-bg {
+    background-color: #1a1a1a;
+}
+
+.dark-mode .dark-mode-text {
+    color: #ffffff;
+}
+
+.dark-mode .dark-mode-btn {
+    background-color: #333333;
+    color: #ffffff;
+} 

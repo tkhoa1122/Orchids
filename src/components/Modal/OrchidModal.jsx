@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./OrchidModal.css"; // Thêm file CSS cho modal
+import { Link } from "react-router-dom";
 
 const OrchidModal = ({ orchid, onClose }) => {
   if (!orchid) return null;
@@ -30,7 +31,7 @@ const OrchidModal = ({ orchid, onClose }) => {
           )}
         </h3>
         <img src={orchid.image} alt={orchid.name} className="orchid-image" />
-        
+
         <p>
           <strong>Origin: </strong>
           <span style={{ color: "black", fontWeight: "bold" }}>
@@ -87,6 +88,13 @@ const OrchidModal = ({ orchid, onClose }) => {
             <i className="fas fa-thumbs-up" style={{ marginRight: "5px" }}></i>
             {likes}
           </button>
+
+          <Link
+            to={`/orchid/${orchid.id}`}
+            className="btn btn-primary"
+          >
+            Detail
+          </Link>
 
           <button
             className="btn btn-outline-success"
