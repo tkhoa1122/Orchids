@@ -12,10 +12,42 @@ const Nav = () => {
   const [notification, setNotification] = useState({ message: '', type: '' });
   const navigate = useNavigate();
 
+  // Kiểm tra token khi khởi động
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token && !user) {
+        try {
+          // Token tồn tại, kiểm tra tính hợp lệ với Firebase
+          const currentUser = auth.currentUser;
+          if (currentUser) {
+            // Token hợp lệ, cập nhật user
+            setUser(currentUser);
+            console.log('Đã khôi phục phiên đăng nhập từ token');
+          } else {
+            // Token không hợp lệ hoặc hết hạn
+            localStorage.removeItem('token');
+            console.log('Token không hợp lệ hoặc đã hết hạn');
+          }
+        } catch (error) {
+          console.error('Lỗi kiểm tra token:', error);
+          localStorage.removeItem('token');
+        }
+      }
+    };
+    checkAuth();
+  }, [user]);
+
   // Theo dõi trạng thái đăng nhập
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // Cập nhật token mới khi user thay đổi
+        currentUser.getIdToken().then(token => {
+          localStorage.setItem('token', token);
+        });
+      }
     });
     return () => unsubscribe();
   }, []);
