@@ -1,0 +1,74 @@
+.orchid-title {
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .special-badge {
+    color: red;
+    font-style: italic;
+    text-transform: lowercase;
+    font-size: 0.8em;
+    margin-left: 8px;
+  }
+  
+  .orchid-info {
+    font-size: 1rem;
+  }
+  
+  .info-item {
+    margin-bottom: 1rem;
+  }
+  
+  .info-item strong {
+    font-weight: 600;
+  }
+  
+  .origin-text {
+    color: black;
+    font-weight: bold;
+  }
+  
+  .color-text {
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .price-text {
+    color: blue;
+    font-weight: bold;
+  }
+  
+  .rating-section {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .stars-container {
+    margin-left: 10px;
+  }
+  
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  
+  .add-to-cart-btn {
+    transition: all 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }

@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 
 const OrchidCard = ({ orchid }) => {
-  //Init number of likes
-  const [likes, setLikes] = useState(orchid.likes);
-  const [showAddToCart, setShowAddToCart] = useState(false);
-  const [rating, setRating] = useState(orchid.rating || 0);
+  // //Init number of likes
+  // const [likes, setLikes] = useState(orchid.likes);
+  // const [showAddToCart, setShowAddToCart] = useState(false);
+  // const [rating, setRating] = useState(orchid.rating || 0);
 
 
-  //func to handle like button
-  const handleLike = () => {
-    setLikes(likes + 1);
-  };
+  // //func to handle like button
+  // const handleLike = () => {
+  //   setLikes(likes + 1);
+  // };
 
-  //handle rating star
-  const handleStarClick = (index) => {
-    setRating(index + 1);
-  }
+  // //handle rating star
+  // const handleStarClick = (index) => {
+  //   setRating(index + 1);
+  // }
 
   return (
     <div className="orchid-card">

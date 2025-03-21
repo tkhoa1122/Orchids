@@ -100,20 +100,23 @@
 }
 
 .dropdown-item {
-  display: flex;
-  align-items: center;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  clear: both;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  transition: all 0.2s;
 }
 
-.dark-mode .dropdown-menu {
-  background-color: #2d2d2d;
-}
-
-.dark-mode .dropdown-item {
-  color: #ffffff;
+.dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .dark-mode .dropdown-item:hover {
-  background-color: #444444;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-collapse {
@@ -122,5 +125,15 @@
 
 .d-flex.align-items-center {
   margin-right: 0; /* Loại bỏ margin bên phải */
+}
+
+/* Google login button */
+.btn-outline-primary {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

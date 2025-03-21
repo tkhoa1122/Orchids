@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProfileLayout } from './ProfileLayout';
 import { Table, Button, Badge, Modal, Form, InputGroup } from 'react-bootstrap';
 import { FaPlus, FaEdit, FaTrash, FaSearch, FaStar } from 'react-icons/fa';
-import { ListOfOrchid } from '../data/ListOfOrchid';
+import api from '../data/Axios';
 import './ProfileLayout.css';
 
 export const OrchidManagement = () => {
-    const [orchids, setOrchids] = useState(ListOfOrchid);
+    const [orchids, setOrchids] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [currentOrchid, setCurrentOrchid] = useState(null);
-    const [modalMode, setModalMode] = useState('create'); // 'create', 'update'
+    const [modalMode, setModalMode] = useState('create');
+
+    // Fetch orchids từ API
+    useEffect(() => {
+        fetchOrchids();
+    }, []);
+
+    const fetchOrchids = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get('/get-all-orchids');
+            setOrchids(response.data);
+            setError(null);
+        } catch (err) {
+            setError('Không thể tải danh sách hoa lan. Vui lòng thử lại sau!');
+            console.error('Error fetching orchids:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Lọc orchid theo từ khóa tìm kiếm
     const filteredOrchids = orchids.filter(orchid => 
@@ -21,7 +42,6 @@ export const OrchidManagement = () => {
 
     // Khởi tạo orchid mới
     const initialOrchidState = {
-        id: String(Date.now()),
         name: "",
         rating: 3,
         isSpecial: false,
@@ -49,22 +69,38 @@ export const OrchidManagement = () => {
     };
 
     // Xử lý xóa orchid
-    const handleDeleteOrchid = (id) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa orchid này?')) {
-            setOrchids(orchids.filter(orchid => orchid.id !== id));
+    const handleDeleteOrchid = async (id) => {
+        if (window.confirm('Bạn có chắc chắn muốn xóa hoa lan này?')) {
+            try {
+                await api.delete(`/get-all-orchids/${id}`);
+                setOrchids(orchids.filter(orchid => orchid.id !== id));
+                alert('Xóa hoa lan thành công!');
+            } catch (err) {
+                alert('Không thể xóa hoa lan. Vui lòng thử lại sau!');
+                console.error('Error deleting orchid:', err);
+            }
         }
     };
 
     // Xử lý lưu orchid (thêm mới hoặc cập nhật)
-    const handleSaveOrchid = () => {
-        if (modalMode === 'create') {
-            setOrchids([...orchids, currentOrchid]);
-        } else {
-            setOrchids(orchids.map(orchid => 
-                orchid.id === currentOrchid.id ? currentOrchid : orchid
-            ));
+    const handleSaveOrchid = async () => {
+        try {
+            if (modalMode === 'create') {
+                const response = await api.post('/get-all-orchids', currentOrchid);
+                setOrchids([...orchids, response.data]);
+                alert('Thêm hoa lan mới thành công!');
+            } else {
+                const response = await api.put(`/get-all-orchids/${currentOrchid.id}`, currentOrchid);
+                setOrchids(orchids.map(orchid => 
+                    orchid.id === currentOrchid.id ? response.data : orchid
+                ));
+                alert('Cập nhật hoa lan thành công!');
+            }
+            setShowModal(false);
+        } catch (err) {
+            alert('Không thể lưu thông tin hoa lan. Vui lòng thử lại sau!');
+            console.error('Error saving orchid:', err);
         }
-        setShowModal(false);
     };
 
     // Xử lý thay đổi giá trị trong form
@@ -76,13 +112,37 @@ export const OrchidManagement = () => {
         });
     };
 
+    // Loading state
+    if (loading) {
+        return (
+            <ProfileLayout>
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Đang tải...</span>
+                    </div>
+                </div>
+            </ProfileLayout>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return (
+            <ProfileLayout>
+                <div className="alert alert-danger m-4" role="alert">
+                    {error}
+                </div>
+            </ProfileLayout>
+        );
+    }
+
     return (
         <ProfileLayout>
-            <div className="container-fluid py-4 dark-mode-bg" style={{ marginLeft: '250px', width: 'calc(100% - 250px)' }}>
+            <div className="container py-4 dark-mode-bg">
                 <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h2 className="dark-mode-text">Orchid Management</h2>
+                    <h2 className="dark-mode-text">Quản lý Hoa Lan</h2>
                     <Button variant="success" onClick={handleAddOrchid}>
-                        <FaPlus className="me-2" /> Add New Orchid
+                        <FaPlus className="me-2" /> Thêm Hoa Lan Mới
                     </Button>
                 </div>
 
@@ -92,14 +152,14 @@ export const OrchidManagement = () => {
                         <FaSearch />
                     </InputGroup.Text>
                     <Form.Control
-                        placeholder="Search orchids by name, category, or origin..."
+                        placeholder="Tìm kiếm theo tên, loại, xuất xứ..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </InputGroup>
 
                 {/* Orchids Table */}
-                <div className="table-responsive">
+                <div className="table-responsive orchid-table">
                     <Table striped bordered hover>
                         <thead className="bg-primary text-white">
                             <tr>
@@ -186,13 +246,19 @@ export const OrchidManagement = () => {
                 </div>
 
                 {/* Create/Update Modal */}
-                <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-                    <Modal.Header closeButton>
+                <Modal 
+                    show={showModal} 
+                    onHide={() => setShowModal(false)} 
+                    size="lg"
+                    centered
+                    dialogClassName="custom-modal"
+                >
+                    <Modal.Header closeButton className="border-bottom">
                         <Modal.Title>
-                            {modalMode === 'create' ? 'Add New Orchid' : 'Update Orchid'}
+                            {modalMode === 'create' ? 'Thêm Hoa Lan Mới' : 'Cập Nhật Hoa Lan'}
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="modal-body-custom">
                         <Form>
                             <div className="row">
                                 <div className="col-md-6">
@@ -307,12 +373,12 @@ export const OrchidManagement = () => {
                             </Form.Group>
                         </Form>
                     </Modal.Body>
-                    <Modal.Footer>
+                    <Modal.Footer className="border-top">
                         <Button variant="secondary" onClick={() => setShowModal(false)}>
-                            Cancel
+                            Hủy
                         </Button>
                         <Button variant="primary" onClick={handleSaveOrchid}>
-                            {modalMode === 'create' ? 'Add Orchid' : 'Update Orchid'}
+                            {modalMode === 'create' ? 'Thêm' : 'Cập nhật'}
                         </Button>
                     </Modal.Footer>
                 </Modal>

@@ -6,6 +6,7 @@ import Contact from './components/Contact/Contact';
 import About from './components/About/About';
 import { Profile } from './components/Profile/Profile';
 import { OrchidManagement } from './components/Profile/OrchidManagement';
+import PrivateRoute from '../src/components/firebase/PrivateRoute';
 
 const App = () => {
     return (
@@ -17,7 +18,14 @@ const App = () => {
                 <Route path="/Contact" element= {<Contact/>} />
                 <Route path="/About" element= {<About/>} />
 
-                <Route path="/Profile" element= {<Profile/>} />
+                <Route 
+                    path="/profile" 
+                    element={
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>
+                    } 
+                />
                 <Route path="/OrchidManagement" element= {<OrchidManagement/>} />
             </Routes>
         </BrowserRouter>
