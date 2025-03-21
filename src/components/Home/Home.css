@@ -59,3 +59,16 @@
     }
   }
   
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .error-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+  }
+  

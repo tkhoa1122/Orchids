@@ -2,6 +2,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { FaUserMd, FaClipboardList } from 'react-icons/fa';
 import Nav from '../Navbar/nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './ProfileLayout.css';
 
 export const ProfileLayout = ({ children }) => {
     const navigate = useNavigate();
@@ -10,12 +11,20 @@ export const ProfileLayout = ({ children }) => {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <div>
+        <div className="min-vh-100">
             {/* Navbar */}
             <Nav />
 
-            <div className="d-flex flex-grow-1">
-                <aside className="shadow-sm border-end p-3 dark-mode-bg" style={{ width: '250px', height: '850px' }}>
+            <div className="d-flex position-relative">
+                {/* Sidebar - Fixed position */}
+                <aside className="shadow-sm border-end p-3 dark-mode-bg position-fixed" 
+                       style={{ 
+                           width: '250px', 
+                           height: 'calc(100vh - 56px)',
+                           top: '56px',
+                           overflowY: 'auto',
+                           zIndex: 1000
+                       }}>
                     <h5 className="text-center fw-bold mb-4 dark-mode-text">Dashboard</h5>
                     <nav className="d-flex flex-column gap-3">
                         <button
@@ -40,10 +49,12 @@ export const ProfileLayout = ({ children }) => {
                     </nav>
                 </aside>
 
-                {/* Main Content */}
-                <div className="flex-1 ml-64 p-8 dark-mode-bg">
-                    {children}
-                </div>
+                {/* Main Content - With margin to avoid sidebar overlap */}
+                <main className="flex-grow-1 dark-mode-bg" style={{ marginLeft: '250px', minHeight: 'calc(100vh - 56px)' }}>
+                    <div className="p-4">
+                        {children}
+                    </div>
+                </main>
             </div>
         </div>
     );

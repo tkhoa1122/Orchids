@@ -1,15 +1,38 @@
 import React, { useState } from "react";
 import "./OrchidModal.css"; // Thêm file CSS cho modal
 import { Link } from "react-router-dom";
+import api from "../data/Axios";
 
-const OrchidModal = ({ orchid, onClose }) => {
+const OrchidModal = ({ orchid, onClose, onUpdateLikes }) => {
   if (!orchid) return null;
 
   const [likes, setLikes] = useState(orchid.likes);
   const [showAddToCart, setShowAddToCart] = useState(false);
+  const [isLiking, setIsLiking] = useState(false);
 
-  const handleLike = () => {
-    setLikes(likes + 1);
+  // Xử lý like với API
+  const handleLike = async () => {
+    try {
+      setIsLiking(true);
+      // Gọi API để cập nhật số likes
+      const response = await api.put(`/get-all-orchids/${orchid.id}`, {
+        ...orchid,
+        likes: likes + 1
+      });
+      
+      // Cập nhật state local
+      setLikes(response.data.likes);
+      
+      // Callback để cập nhật state ở component cha (nếu cần)
+      if (onUpdateLikes) {
+        onUpdateLikes(orchid.id, response.data.likes);
+      }
+    } catch (error) {
+      console.error('Error updating likes:', error);
+      alert('Không thể cập nhật likes. Vui lòng thử lại sau!');
+    } finally {
+      setIsLiking(false);
+    }
   };
 
   return (
@@ -18,30 +41,33 @@ const OrchidModal = ({ orchid, onClose }) => {
         <h3>
           {orchid.name}{" "}
           {orchid.isSpecial && (
-            <span
-              style={{
-                color: "red",
-                fontStyle: "italic",
-                textTransform: "lowercase",
-                fontSize: "0.8em",
-              }}
-            >
+            <span className="special-tag">
               (rare)
             </span>
           )}
         </h3>
-        <img src={orchid.image} alt={orchid.name} className="orchid-image" />
+
+        {/* Hình ảnh với error handling */}
+        <img 
+          src={orchid.image} 
+          alt={orchid.name} 
+          className="orchid-image"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/assets/img/default-orchid.jpg';
+          }}
+        />
 
         <p>
           <strong>Origin: </strong>
-          <span style={{ color: "black", fontWeight: "bold" }}>
+          <span className="origin-text">
             {orchid.origin}
           </span>
         </p>
 
         <p>
           <strong>Color:</strong>{" "}
-          <span style={{
+          <span className="color-text" style={{
             color: orchid.color.toLowerCase(),
             fontWeight: "bold",
             textShadow: "1px 1px 2px rgba(0, 0, 0, 1)"
@@ -62,30 +88,39 @@ const OrchidModal = ({ orchid, onClose }) => {
               <i
                 key={index}
                 className={`fas fa-star ${index < orchid.rating ? "text-warning" : "text-muted"}`}
-                style={{ fontSize: "1.2rem", cursor: "pointer" }}
+                style={{ fontSize: "1.2rem" }}
               />
             ))}
           </span>
         </div>
 
-        {/* Video */}
-        <div className="video-section">
-          <iframe
-            width="100%"
-            height="250"
-            src={orchid.video}
-            title={orchid.name}
-            allowFullScreen
-          ></iframe>
-        </div>
+        {/* Video với error handling */}
+        {orchid.video && (
+          <div className="video-section">
+            <iframe
+              width="100%"
+              height="250"
+              src={orchid.video}
+              title={orchid.name}
+              allowFullScreen
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            ></iframe>
+          </div>
+        )}
 
-        {/* Like and Price */}
-        <div className="d-flex justify-content-between align-items-center">
+        {/* Like và Actions */}
+        <div className="d-flex justify-content-between align-items-center mt-3">
           <button
-            className="btn btn-outline-primary d-flex align-items-center"
+            className={`btn btn-outline-primary d-flex align-items-center ${isLiking ? 'disabled' : ''}`}
             onClick={handleLike}
+            disabled={isLiking}
           >
-            <i className="fas fa-thumbs-up" style={{ marginRight: "5px" }}></i>
+            <i className="fas fa-thumbs-up me-2"></i>
+            {isLiking ? (
+              <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            ) : null}
             {likes}
           </button>
 
@@ -93,19 +128,19 @@ const OrchidModal = ({ orchid, onClose }) => {
             to={`/orchid/${orchid.id}`}
             className="btn btn-primary"
           >
-            Detail
+            Chi tiết
           </Link>
 
           <button
             className="btn btn-outline-success"
             onMouseEnter={() => setShowAddToCart(true)}
             onMouseLeave={() => setShowAddToCart(false)}
-            onClick={() => alert("Added to cart!")}
+            onClick={() => alert("Đã thêm vào giỏ hàng!")}
           >
             {showAddToCart ? (
               <>
-                <i className="fas fa-shopping-cart" style={{ marginRight: "5px" }}></i>
-                Add to Cart
+                <i className="fas fa-shopping-cart me-2"></i>
+                Thêm vào giỏ
               </>
             ) : (
               orchid.marketValue
@@ -113,7 +148,7 @@ const OrchidModal = ({ orchid, onClose }) => {
           </button>
         </div>
 
-        <button className="close-btn" onClick={onClose}>Close</button>
+        <button className="close-btn" onClick={onClose}>Đóng</button>
       </div>
     </div>
   );
