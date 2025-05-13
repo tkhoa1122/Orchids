@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseURL = "https://67ab0f4d65ab088ea7e87a04.mockapi.io";
+
+const baseURL = import.meta.env.VITE_API_URL;
 
 const config = {
   baseURL: baseURL,
